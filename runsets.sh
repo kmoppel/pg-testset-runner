@@ -42,8 +42,9 @@ for LOOP in $(seq 1 ${LOOPS}) ; do
 echo "Starting loop $loop ..."
 
 # Test conn and do pg_stat_statement and pgbench setup
-for CURSET in "$TESTSETS" ; do
+for CURSET in ${TESTSETS} ; do
     CURSET_NAME=$(echo $CURSET | sed 's#^[0-9]*\_\(.*\)#\1#g')
+    echo "Processing testset ${CURSET_NAME} from folder ${CURSET}..."
 
     if [ -f "testsets/${CURSET}/setup.sh" ] ; then
         echo "Calling custom setup.sh for testset ${CURSET}"
@@ -74,11 +75,9 @@ for CURSET in "$TESTSETS" ; do
 
 
 
-    if [ -f "testsets/${CURSET}/setup.sh" ] ; then
+    if [ -f "testsets/${CURSET}/command.sh" ] ; then
         echo "Calling test command 'testsets/${CURSET}/setup.sh'"
-        pushd "testsets/${CURSET}"
-        ./testsets/${CURSET}/setup.sh
-        popd
+        ./testsets/${CURSET}/command.sh
     else
         echo "Calling global test command..."
         ./command.sh

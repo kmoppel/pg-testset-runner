@@ -5,4 +5,4 @@
 set -ex
 
 CONNSTR=$(cat connstr.conf)
-/usr/lib/postgresql/11/bin/pgbench "$CONNSTR" -T 1800 -c 8 -M prepared
+/usr/lib/postgresql/11/bin/pgbench "$CONNSTR" -T 1800 -c16 -M prepared
