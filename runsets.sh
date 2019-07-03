@@ -13,6 +13,7 @@ DELETE_OLD_RESULTS=1
 
 DO_SETUP=1
 DO_TEARDOWN=1
+DO_DROP_OS_CACHE=0  # makes sense only if on the test host same
 
 LOOPS=1
 
@@ -74,6 +75,9 @@ for CURSET in ${TESTSETS} ; do
     $PSQL ${CONN_STR} -qXc "checkpoint"
 
 
+    if [ $DO_DROP_OS_CACHE -gt 0 ] ; then
+        sudo ./drop_caches.sh   # need to adjust "sudoers" for the executing user first...
+    fi
 
     if [ -f "testsets/${CURSET}/command.sh" ] ; then
         echo "Calling test command 'testsets/${CURSET}/setup.sh'"
