@@ -80,7 +80,7 @@ for CURSET in ${TESTSETS} ; do
     fi
 
     if [ -f "testsets/${CURSET}/command.sh" ] ; then
-        echo "Calling test command 'testsets/${CURSET}/setup.sh'"
+        echo "Calling test command 'testsets/${CURSET}/command.sh'"
         ./testsets/${CURSET}/command.sh
     else
         echo "Calling global test command..."
@@ -99,7 +99,7 @@ for CURSET in ${TESTSETS} ; do
     fi
 
 
-    if [ -f "testsets/${CURSET}/setup.sh" ] ; then
+    if [ -f "testsets/${CURSET}/teardown.sh" ] ; then
         echo "Calling custom teardown.sh for testset ${CURSET}"
         pushd "testsets/${CURSET}"
         ./teardown.sh
